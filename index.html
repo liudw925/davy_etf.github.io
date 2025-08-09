@@ -1,0 +1,47 @@
+<!-- 在index.html头部插入 -->
+<script>
+const CORRECT_HASH = CryptoJS.SHA256("hello").toString(); // hello的SHA256值
+function checkPassword() {
+  const input = prompt("Enter password:");
+  if (CryptoJS.SHA256(input).toString() === CORRECT_HASH) {
+    document.body.style.display = "block";
+  } else {
+    alert("Wrong password!");
+    location.reload();
+  }
+}
+document.body.style.display = "none";
+checkPassword();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>金融产品</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>被动指数与产品数字化运营</h1>
+    <ul>
+        <!-- 每个项目添加链接和简介 -->
+        <li>
+            <a href="ETF保有分析_20250731.html">ETF保有分析（截至：20250731）</a>
+            <p>简介：分公司、产品维度等</p>
+        </li>
+        <li>
+            <a href="分公司ETF分类保有_20250731.html">分公司ETF分类保有（截至：20250731）</a>
+            <p>简介：分公司ETF不同类型产品保有</p>
+        </li>
+    </ul>
+</body>
+
+</html>
+
+
+
+
+
+
+
