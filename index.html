@@ -1,26 +1,35 @@
-<!-- 在index.html头部插入 -->
-<script>
-const CORRECT_HASH = CryptoJS.SHA256("hello").toString(); // hello的SHA256值
-function checkPassword() {
-  const input = prompt("Enter password:");
-  if (CryptoJS.SHA256(input).toString() === CORRECT_HASH) {
-    document.body.style.display = "block";
-  } else {
-    alert("Wrong password!");
-    location.reload();
-  }
-}
-document.body.style.display = "none";
-checkPassword();
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-
-
 <!DOCTYPE html>
 <html>
 <head>
+<!--     <link rel="stylesheet" href="css/style.css"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>金融产品</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .protected-content { display: none; }
+        .password-form {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+        input[type="password"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 80%;
+        }
+        button {
+            background: #2ea44f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+  
 </head>
 <body>
     <div class="password-form" id="passwordForm">
@@ -33,21 +42,23 @@ checkPassword();
     <div class="protected-content" id="protectedContent">
         <!-- 实际页面内容 -->
         <h1>被动指数与产品数字化运营</h1>
-        <ul>
-            <!-- 每个项目添加链接和简介 -->
-            <li>
-                <a href="ETF保有分析_20250731.html">ETF保有分析（截至：20250731）</a>
-                <p>简介：分公司、管理人、产品、营业部等维度</p>
-            </li>
-            <li>
-                <a href="分公司ETF分类保有_20250731.html">分公司ETF分类保有（截至：20250731）</a>
-                <p>简介：分公司ETF及不同类型产品保有</p>
-            </li>
-            <li>
-                <a href="管理人ETF分类保有_20250731.html">管理人ETF分类保有（截至：20250731）</a>
-                <p>简介：管理ETF及不同类型产品保有</p>
-            </li>
-        </ul>
+        <p>
+          <ul>
+              <!-- 每个项目添加链接和简介 -->
+              <li>
+                  <a href="ETF保有分析_20250731.html">ETF保有分析（截至：20250731）</a>
+                  <p>简介：分公司、管理人、产品、营业部等维度</p>
+              </li>
+              <li>
+                  <a href="分公司ETF分类保有_20250731.html">分公司ETF分类保有（截至：20250731）</a>
+                  <p>简介：分公司ETF及不同类型产品保有</p>
+              </li>
+              <li>
+                  <a href="管理人ETF分类保有_20250731.html">管理人ETF分类保有（截至：20250731）</a>
+                  <p>简介：管理ETF及不同类型产品保有</p>
+              </li>
+          </ul>
+        </p>
     </div>
 
     <script>
@@ -78,6 +89,7 @@ checkPassword();
 </body>
 
 </html>
+
 
 
 
