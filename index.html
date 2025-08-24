@@ -4,7 +4,7 @@
 <!--     <link rel="stylesheet" href="css/style.css"> -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>金融产品</title>
+    <title>受保护页面</title>
     <style>
         .protected-content { display: none; }
         .password-form {
@@ -14,28 +14,41 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         input[type="password"] {
-            padding: 10px;
-            margin: 10px 0;
+            padding: 12px;
+            margin: 15px 0;
             width: 80%;
+            border: 2px solid #e2e8f0;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+        input[type="password"]:focus {
+            border-color: #4299e1;
+            outline: none;
         }
         button {
-            background: #2ea44f;
+            background: #4299e1;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #2b6cb0;
         }
     </style>
 </head>
 <body>
     <div class="password-form" id="passwordForm">
-        <h2>需要密码访问</h2>
-        <input type="password" id="passwordInput" placeholder="输入访问密码">
-        <button onclick="checkPassword()">提交</button>
-        <p id="errorMsg" style="color:red;"></p>
+        <h2>🔒 受保护内容</h2>
+        <input type="password" id="passwordInput" placeholder="请输入访问密码" autocomplete="current-password">
+        <button onclick="checkPassword()">验证</button>
+        <p id="errorMsg" style="color:red; margin-top:10px;"></p>
     </div>
     
     <div class="protected-content" id="protectedContent">
@@ -56,20 +69,31 @@
                   <p>简介：管理ETF及不同类型产品保有</p>
               </li>
         </ul>
+        <button onclick="logout()" style="margin-top:20px;">退出登录</button>
     </div>
-
+    
     <script>
-        const CORRECT_PASSWORD = "6789"; // 替换为你的密码
-        const STORAGE_KEY = "authToken";
+        const PASSWORD_HASH = "499bc7df9d8873c1c38e6898177c343b2a34d2eb43178a9eb4efcb993366c8cd"; // SHA-256哈希值
+        const SESSION_KEY = "auth_session";
         
+        // 页面加载时检查认证状态
+        window.onload = function() {
+            if(localStorage.getItem(SESSION_KEY) === PASSWORD_HASH) {
+                showContent();
+            }
+        };
+
         function checkPassword() {
             const input = document.getElementById("passwordInput").value;
-            if(input === CORRECT_PASSWORD) {
-                localStorage.setItem(STORAGE_KEY, "authenticated");
-                showContent();
-            } else {
-                document.getElementById("errorMsg").textContent = "密码错误";
-            }
+            // 使用SHA-256哈希比较（实际项目中应使用更安全的方案）
+            sha256(input).then(hash => {
+                if(hash === PASSWORD_HASH) {
+                    localStorage.setItem(SESSION_KEY, hash);
+                    showContent();
+                } else {
+                    document.getElementById("errorMsg").textContent = "密码错误，请重试";
+                }
+            });
         }
         
         function showContent() {
@@ -77,15 +101,26 @@
             document.getElementById("protectedContent").style.display = "block";
         }
         
-        // 检查本地存储的认证状态
-        // if(localStorage.getItem(STORAGE_KEY) === "authenticated") {
-        //     showContent();
-        // }
+        function logout() {
+            localStorage.removeItem(SESSION_KEY);
+            location.reload();
+        }
+        
+        // 简单的SHA-256哈希函数（生产环境建议使用更安全的方案）
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
     </script>
+    
+   
     
 </body>
 
 </html>
+
 
 
 
