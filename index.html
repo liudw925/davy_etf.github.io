@@ -19,16 +19,43 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        .banner-text {
+/*         .banner-text {
             position: absolute;
             left: 1%;
             top: 1%;
             color: white;
-            font-size: calc(8px + 1vw);
+            font-size: calc(16px + 2vw);
             font-weight: 700;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
             font-family: 'Arial', sans-serif;
             max-width: 80%;
+        } */
+
+        .banner-text {
+            position: absolute;
+            left: 1%;
+            top: 50%;
+            transform: translateY(-50%); /* 垂直居中 */
+            color: white;
+            font-size: calc(3.5rem - 0.2vw); /* 改用rem单位，基准值设为3.5rem（56px）*/
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            font-family: 'Arial', sans-serif;
+            max-width: 80%;
+            line-height: 1.2; /* 行高优化 */
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .banner-text {
+                font-size: calc(3rem - 0.1vw); /* 缩小基准值 */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .banner-text {
+                font-size: calc(2.5rem - 0.05vw); /* 进一步缩小 */
+            }
         }
         
         .protected-content { display: none; }
@@ -188,6 +215,7 @@
 </body>
 
 </html>
+
 
 
 
