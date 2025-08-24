@@ -116,7 +116,7 @@
 
         function checkPassword() {
             const input = document.getElementById("passwordInput").value;
-            // 使用SHA-256哈希比较（实际项目中应使用更安全的方案）
+            // 使用SHA-256哈希比较
             sha256(input).then(hash => {
                 if(hash === PASSWORD_HASH) {
                     localStorage.setItem(SESSION_KEY, hash);
@@ -137,7 +137,7 @@
             location.reload();
         }
         
-        // 简单的SHA-256哈希函数（生产环境建议使用更安全的方案）
+        // 简单的SHA-256哈希函数
         async function sha256(message) {
             const msgBuffer = new TextEncoder().encode(message);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -156,6 +156,7 @@
 </body>
 
 </html>
+
 
 
 
